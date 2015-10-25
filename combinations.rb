@@ -7,22 +7,12 @@ def find_combinations(dictionary, target)
     arr  = i.zero? ? arr_i : arr.product(arr_i)
   end
 
-  arr.map! do |e|
-    e.flatten!
-
+  arr.map do |row|
     # If some element have length > 1 then delete (size-1) next elements.
-    # Implement: Copy every element
-    #            and skip next (current element - 1) if current element length more then 1
-    #            (index incremented at current element size (not 1),
-    #             if elements skiped then they be 'nil'  )
-    result = []
-    index = 0
-    e.each_index do |i|
-      result[i] = e[index]
-      index += e[index].size if e[index]
-    end
-
-    result.compact.join ' ' # Delete all 'nil' and join at string.
+    # Implement: Change current element to nil
+    #            if size of all elements before them < curent element index.
+    row.flatten!.map!.with_index { |e, i| row[0...i].join.size == i ? e : nil }.
+      compact.join ' '
   end
 end
 
