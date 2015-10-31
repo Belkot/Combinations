@@ -3,7 +3,7 @@ def find_combinations(dictionary, target)
   # Slice target string and get dictionary elements in array if they start a target.
   (0...target.size).each do |i|
     target_substr = target[i...target.size]
-    arr_i = dictionary.group_by { |word| target_substr.start_with?(word) }[true] || []
+    arr_i = dictionary.select { |word| target_substr.start_with?(word) }
     arr  = i.zero? ? arr_i : arr.product(arr_i)
   end
 
